@@ -56,3 +56,5 @@ class Scanner {
     return stdout;
   }
 }
+
+module.exports = Scanner;
