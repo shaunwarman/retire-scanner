@@ -1,0 +1,14 @@
+{
+  "name": "retire-scanner",
+  "version": "0.0.1",
+  "description": "A simple wrapper around retire.js to use in programmatic fashion",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shaun Warman",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^4.1.1"
+  }
+}
