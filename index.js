@@ -10,7 +10,7 @@ const exists = promisify(fs.exists);
 class Scanner {
   constructor(options = {}) {
     this.outputformat = options.outputformat || 'json';
-    this.jspath = options.path || 'public';
+    this.path = options.path || 'public';
   }
   
   getCmd() {
