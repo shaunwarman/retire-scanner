@@ -1,8 +1,11 @@
 const cp = require('child_process');
 const debug = require('debug')('retire');
+const fs = require('fs');
+const path = require('path');
 const { promisify } = require('util');
 
 const exec = promisify(cp.exec);
+const exists = promisify(fs.exists);
 
 class Scanner {
   constructor(options = {}) {
@@ -21,6 +24,11 @@ class Scanner {
   
   async scan() {
     try {
+      const filepath = path.join(process.cwd(), this.jspath);
+      const pathExists = await exists(filepath);
+      if (!pathExists) {
+        throw new Error(`${this.jspath} does not exist!`);
+      }
       await this._run();
     } catch (err) {
       // CLI exits with code 13 if issues found
@@ -35,6 +43,7 @@ class Scanner {
   
   _parse(json) {
     try {
+      debug('parse: %O', json);
       const js = JSON.parse(json);
       return js.data.map(item => {
         const { component, vulnerabilities } = item.results[0];
