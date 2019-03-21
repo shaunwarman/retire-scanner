@@ -24,10 +24,10 @@ class Scanner {
   
   async scan() {
     try {
-      const filepath = path.join(process.cwd(), this.jspath);
+      const filepath = path.join(process.cwd(), this.path);
       const pathExists = await exists(filepath);
       if (!pathExists) {
-        throw new Error(`${this.jspath} does not exist!`);
+        throw new Error(`${this.path} does not exist!`);
       }
       await this._run();
     } catch (err) {
@@ -45,14 +45,17 @@ class Scanner {
     try {
       debug('parse: %O', json);
       const js = JSON.parse(json);
-      return js.data.map(item => {
+      
+      const issues = {};
+      for (const item of js.data) {
         const { component, vulnerabilities } = item.results[0];
         const vulns = vulnerabilities.map(vuln => {
           const { severity, identifiers } = vuln;
           return { severity, summary: identifiers.summary };
         });
-        return { [component]: vulns };
-      });
+        issues[component] = vulns;
+      }
+      return issues;
     } catch (err) {
       throw err;
     }
