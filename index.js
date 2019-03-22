@@ -2,6 +2,7 @@ const cp = require('child_process');
 const debug = require('debug')('retire');
 const fs = require('fs');
 const path = require('path');
+const readdir = require('recursive-readdir');
 const { promisify } = require('util');
 
 const exec = promisify(cp.exec);
@@ -28,6 +29,11 @@ class Scanner {
       const pathExists = await exists(filepath);
       if (!pathExists) {
         throw new Error(`${this.path} does not exist!`);
+      }
+      const files = await readdir(filepath, ['.*']);
+      debug('files', files);
+      if (!files.length) {
+        return {};
       }
       await this._run();
     } catch (err) {
