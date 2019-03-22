@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "debug": "^4.1.1",
-    "recursive-readdir": "^2.2.2"
+    "recursive-readdir": "^2.2.2",
+    "retire": "^2.0.2"
   }
 }

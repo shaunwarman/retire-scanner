@@ -20,7 +20,7 @@ class Scanner {
       options += `--${key} ${this[key]} `;
     });
     debug('options: %s', options);
-    return `retire ${options}`;
+    return `./node_modules/retire/bin/retire ${options}`;
   }
   
   async scan() {
