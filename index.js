@@ -20,7 +20,13 @@ class Scanner {
       options += `--${key} ${this[key]} `;
     });
     debug('options: %s', options);
-    return `./node_modules/retire/bin/retire ${options}`;
+    const retirepath = path.resolve(path.join(
+      __dirname,
+      '..',
+      '..',
+      'node_modules/.bin/retire'
+    ));
+    return `${retirepath} ${options}`;
   }
   
   async scan() {
@@ -39,6 +45,7 @@ class Scanner {
     } catch (err) {
       // CLI exits with code 13 if issues found
       if (err.stderr) {
+        console.log(err)
         const output = this._parse(err.stderr);
         debug('output: %O', output);
         return output;
