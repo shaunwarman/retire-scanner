@@ -45,7 +45,6 @@ class Scanner {
     } catch (err) {
       // CLI exits with code 13 if issues found
       if (err.stderr) {
-        console.log(err)
         const output = this._parse(err.stderr);
         debug('output: %O', output);
         return output;
